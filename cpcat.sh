@@ -4,9 +4,9 @@
 # cpcat - a simple package management, file backup and synchronization script
 #
 # @author       Mort Yao
-# @version      2012-03-04
+# @version      2012-03-05
 #
-VERSION=0.8.2
+VERSION=0.8.3
 
 TAR=tar
 LOGPATH="/var/log/cpcat/packages"
@@ -440,7 +440,9 @@ exec_sync() {
         exit 0
     else
         SOURCE=$1
-        NAME=${SOURCE##*/}
+        NAME=${SOURCE%/} ## VERY IMPORTANT!
+        NAME=${NAME##*/}
+        
         if [ ! -r $SOURCE ]; then
             echo "cpcat: $SOURCE: sync source not found."
             exit 1
